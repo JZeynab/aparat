@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script> -->
+    <link rel="stylesheet" href="./lib/css/bootstrap.min.css">
+</head>
+
+<body>
+    <button class="btn btn-primary" onclick="loadProducts()">Load Product</button>
+
+    <div class="container">
+        <div class="row">
+
+        </div>
+    </div>
+    <script>
+        function loadProducts() {
+            const request = new XMLHttpRequest();
+
+            request.onload = function () {
+                const products = JSON.parse(request.responseText);
+
+                if (request.readyState == 4 && request.status == 200) {
+                    const row = document.querySelector(".row");
+
+                    for (let i = 0; i < products.length; i++) {
+
+                        const col = document.createElement("div");
+                        col.className = "col-md-3 border border-danger";
+                        col.innerHTML = `
+                                         <h3>${products[i].title}</h3>
+                                         <button class="btn btn-danger">${products[i].id}</button>
+                                             `;
+                        row.appendChild(col);
+                    }
+
+                }
+                else {
+                    console.log("errore");
+                }
+
+
+
+            }
+
+            request.open("Get", "https://api.wdhtml.ir/products.json");
+
+            request.send();
+            JSON.st
+        }
+    </script>
+    <script src="./lib/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
